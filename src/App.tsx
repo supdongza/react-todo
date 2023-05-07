@@ -1,9 +1,40 @@
 import React from "react";
 import styled from "styled-components";
-import Date from "./components/date/Date";
+import { Reset } from "styled-reset";
+import Header from "./components/header/Header";
+import TodoEditor from "./components/todoEditor/TodoEditor";
+import TodoList from "./components/todoList/TodoList";
 
 function App() {
-  return <Date />;
+  return (
+    <>
+      <Reset />
+      <StyledWrap>
+        <StyledTitle>투두리스트</StyledTitle>
+        <Header />
+        <TodoEditor />
+        <TodoList />
+      </StyledWrap>
+    </>
+  );
 }
 
 export default App;
+
+const StyledWrap = styled.main`
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+`;
+
+const StyledTitle = styled.h1`
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+`;
