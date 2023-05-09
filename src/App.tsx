@@ -5,22 +5,25 @@ import Header from "./components/header/Header";
 import TodoEditor from "./components/todoEditor/TodoEditor";
 import TodoList from "./components/todoList/TodoList";
 
-interface MyData {
-  isCheck: boolean;
-  text: string;
-}
-
 function App() {
-  const [todoList, setTodoList] = useState([]);
-
-  useEffect(() => {
-    const storedData = localStorage.getItem("todoInLocal");
-
-    if (storedData !== null) {
-      const parsedData = JSON.parse(storedData);
-      setTodoList(parsedData);
+  const [todoList, setTodoList] = useState(() => {
+    const getData = window.localStorage.getItem("todoInLocal");
+    if (getData !== null) {
+      return JSON.parse(getData);
+    } else {
+      return [];
     }
-  }, []);
+  });
+
+  // useEffect(() => {
+  //   const localList = localStorage.getItem("todoInLocal");
+
+  //   if (localList !== null) {
+  //     setTodoList(JSON.parse(localList));
+  //   } else {
+  //     window.localStorage.setItem("todoInLocal", JSON.stringify([]));
+  //   }
+  // }, []);
 
   useEffect(() => {
     window.localStorage.setItem("todoInLocal", JSON.stringify(todoList));

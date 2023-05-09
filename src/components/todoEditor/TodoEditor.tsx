@@ -3,24 +3,23 @@ import styled from "styled-components";
 
 interface Props {
   setTodoList: any;
-  todoList: Array<string>;
+  todoList: any;
 }
 
 const TodoEditor = ({ setTodoList, todoList }: Props) => {
   const [isValue, setIsValue] = useState("");
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsValue(e.target.value);
   };
 
-  const handleAddClick = (e: any) => {
-    e.preventDefault();
+  const handleAddClick = () => {
+    if (isValue === "") return;
 
-    if (isValue === "") {
-      alert("텍스트를 입력해주세요");
-      return;
-    }
-    setTodoList([...todoList, { isCheck: false, text: isValue }]);
+    setTodoList([
+      ...todoList,
+      { isCheck: false, text: isValue, createdDate: new Date().getTime() },
+    ]);
     setIsValue("");
   };
 

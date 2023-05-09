@@ -17,6 +17,7 @@ const TodoItem = ({ data }: Props) => {
     <StyledItem>
       <StyledCheckbox type="checkbox" onChange={handleChange} />
       <StyledText>{data.text}</StyledText>
+      <StyledDate>{data.createdDate}</StyledDate>
       <StyledDeleteButton type="button">삭제</StyledDeleteButton>
     </StyledItem>
   );
@@ -27,4 +28,5 @@ export default TodoItem;
 const StyledItem = styled.li``;
 const StyledCheckbox = styled.input``;
 const StyledText = styled.span``;
+const StyledDate = styled.span``;
 const StyledDeleteButton = styled.button``;
