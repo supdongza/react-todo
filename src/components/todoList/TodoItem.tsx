@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
-const TodoItem = () => {
+interface Props {
+  data: any;
+}
+
+const TodoItem = ({ data }: Props) => {
+  const [isChecked, setIsChecked] = useState(data.isCheck);
+
+  const handleChange = (e: any) => {
+    setIsChecked(true);
+    data.isCheck = e.target.checked;
+  };
+
   return (
     <StyledItem>
-      <StyledCheckbox type="checkbox" />
-      <StyledText>React 공부하기</StyledText>
+      <StyledCheckbox type="checkbox" onChange={handleChange} />
+      <StyledText>{data.text}</StyledText>
       <StyledDeleteButton type="button">삭제</StyledDeleteButton>
     </StyledItem>
   );

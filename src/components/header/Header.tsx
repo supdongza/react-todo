@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const Header = () => {
+  const date = new Date().toDateString();
+
   return (
     <StyledWrap>
       <StyledTitle>오늘은 🗓</StyledTitle>
-      <StyledDateText>Mon Jan 02 2023</StyledDateText>
+      <StyledDateText>{date}</StyledDateText>
     </StyledWrap>
   );
 };

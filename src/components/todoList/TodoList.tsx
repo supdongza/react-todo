@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
 
-const TodoList = () => {
+interface Props {
+  todoList: Array<string>;
+}
+
+const TodoList = ({ todoList }: Props) => {
   return (
     <StyledWrap>
       <StyledTitle>Todo List</StyledTitle>
@@ -12,7 +16,9 @@ const TodoList = () => {
           placeholder="검색어를 입력하세요."
         ></StyledInput>
         <StyledList>
-          <TodoItem />
+          {todoList.map((item, index) => {
+            return <TodoItem key={index} data={item} />;
+          })}
         </StyledList>
       </StyledInner>
     </StyledWrap>
