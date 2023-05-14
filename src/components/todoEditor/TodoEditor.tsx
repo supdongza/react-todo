@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface Props {
   setTodoList: any;
-  todoList: any;
+  todoList: Array<string>;
 }
 
 const TodoEditor = ({ setTodoList, todoList }: Props) => {
@@ -18,7 +18,7 @@ const TodoEditor = ({ setTodoList, todoList }: Props) => {
 
     setTodoList([
       ...todoList,
-      { isCheck: false, text: isValue, createdDate: new Date().getTime() },
+      { isChecked: false, text: isValue, createdDate: new Date().getTime() },
     ]);
     setIsValue("");
   };

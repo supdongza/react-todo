@@ -6,6 +6,7 @@ import TodoEditor from "./components/todoEditor/TodoEditor";
 import TodoList from "./components/todoList/TodoList";
 
 function App() {
+  // NOTE : 새로고침 useState 초기화로..
   const [todoList, setTodoList] = useState(() => {
     const getData = window.localStorage.getItem("todoInLocal");
     if (getData !== null) {
@@ -15,6 +16,7 @@ function App() {
     }
   });
 
+  // 처음 시도 했던 방법
   // useEffect(() => {
   //   const localList = localStorage.getItem("todoInLocal");
 
