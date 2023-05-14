@@ -7,8 +7,9 @@ import TodoList from "./components/todoList/TodoList";
 
 function App() {
   // NOTE : 새로고침 useState 초기화로..
+
   const [todoList, setTodoList] = useState(() => {
-    const getData = window.localStorage.getItem("todoInLocal");
+    const getData = window.localStorage.getItem("todoStorage");
     if (getData !== null) {
       return JSON.parse(getData);
     } else {
@@ -16,19 +17,21 @@ function App() {
     }
   });
 
-  // 처음 시도 했던 방법
+  // NOTE : 처음 시도 했던 방법
+  // const [todoList, setTodoList] = useState([]);
+
   // useEffect(() => {
-  //   const localList = localStorage.getItem("todoInLocal");
+  //   const localList = localStorage.getItem("todoStorage");
 
   //   if (localList !== null) {
   //     setTodoList(JSON.parse(localList));
   //   } else {
-  //     window.localStorage.setItem("todoInLocal", JSON.stringify([]));
+  //     window.localStorage.setItem("todoStorage", JSON.stringify([]));
   //   }
   // }, []);
 
   useEffect(() => {
-    window.localStorage.setItem("todoInLocal", JSON.stringify(todoList));
+    window.localStorage.setItem("todoStorage", JSON.stringify(todoList));
   }, [todoList]);
 
   return (
