@@ -7,7 +7,6 @@ import TodoList from "./components/todoList/TodoList";
 
 function App() {
   // NOTE : 새로고침 useState 초기화로..
-
   const [todoList, setTodoList] = useState(() => {
     const getData = window.localStorage.getItem("todoStorage");
     if (getData !== null) {
@@ -19,7 +18,6 @@ function App() {
 
   // NOTE : 처음 시도 했던 방법
   // const [todoList, setTodoList] = useState([]);
-
   // useEffect(() => {
   //   const localList = localStorage.getItem("todoStorage");
 
@@ -32,6 +30,11 @@ function App() {
 
   useEffect(() => {
     window.localStorage.setItem("todoStorage", JSON.stringify(todoList));
+
+    // 고유 ID 부여
+    todoList.forEach((obj: any, index: any) => {
+      obj.id = index;
+    });
   }, [todoList]);
 
   return (
@@ -41,7 +44,7 @@ function App() {
         <StyledTitle>투두리스트</StyledTitle>
         <Header />
         <TodoEditor setTodoList={setTodoList} todoList={todoList} />
-        <TodoList todoList={todoList} />
+        <TodoList todoList={todoList} setTodoList={setTodoList} />
       </StyledWrap>
     </>
   );
@@ -52,7 +55,7 @@ export default App;
 const StyledWrap = styled.main`
   max-width: 500px;
   width: 100%;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 20px;
   border: 1px solid black;
   border-radius: 10px;

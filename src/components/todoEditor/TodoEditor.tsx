@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 interface Props {
@@ -18,7 +18,11 @@ const TodoEditor = ({ setTodoList, todoList }: Props) => {
 
     setTodoList([
       ...todoList,
-      { isChecked: false, text: isValue, createdDate: new Date().getTime() },
+      {
+        isChecked: false,
+        text: isValue,
+        createdDate: new Date().toLocaleDateString(),
+      },
     ]);
     setIsValue("");
   };
@@ -43,8 +47,37 @@ const TodoEditor = ({ setTodoList, todoList }: Props) => {
 
 export default TodoEditor;
 
-const StyledWrap = styled.article``;
-const StyledTitle = styled.h2``;
-const StyledInner = styled.div``;
-const StyledInput = styled.input``;
-const StyledAddButton = styled.button``;
+const StyledWrap = styled.div`
+  margin-top: 50px;
+`;
+const StyledTitle = styled.h2`
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 20px;
+`;
+
+const StyledInner = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0 20px;
+`;
+const StyledInput = styled.input`
+  flex: 1;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 15px;
+  &:focus {
+    outline: none;
+    border-color: #1f93ff;
+  }
+`;
+const StyledAddButton = styled.button`
+  flex-shrink: 0;
+  width: 80px;
+  height: 47px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #1f93ff;
+  color: #fff;
+  cursor: pointer;
+`;

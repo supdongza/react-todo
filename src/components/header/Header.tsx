@@ -14,7 +14,7 @@ const Header = () => {
 
 export default Header;
 
-const StyledWrap = styled.article``;
+const StyledWrap = styled.div``;
 const StyledTitle = styled.h2`
   font-weight: 600;
   font-size: 20px;
@@ -22,5 +22,6 @@ const StyledTitle = styled.h2`
 `;
 const StyledDateText = styled.strong`
   display: block;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 50px;
 `;
