@@ -1,50 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Reset } from "styled-reset";
 import Header from "./components/header/Header";
-import TodoEditor from "./components/todoEditor/TodoEditor";
-import TodoList from "./components/todoList/TodoList";
+import TodoContainer from "./components/todoContainer/TodoContainer";
 
 function App() {
-  // NOTE : 새로고침 useState 초기화로..
-  const [todoList, setTodoList] = useState(() => {
-    const getData = window.localStorage.getItem("todoStorage");
-    if (getData !== null) {
-      return JSON.parse(getData);
-    } else {
-      return [];
-    }
-  });
-
-  // NOTE : 처음 시도 했던 방법
-  // const [todoList, setTodoList] = useState([]);
-  // useEffect(() => {
-  //   const localList = localStorage.getItem("todoStorage");
-
-  //   if (localList !== null) {
-  //     setTodoList(JSON.parse(localList));
-  //   } else {
-  //     window.localStorage.setItem("todoStorage", JSON.stringify([]));
-  //   }
-  // }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("todoStorage", JSON.stringify(todoList));
-
-    // 고유 ID 부여
-    todoList.forEach((obj: any, index: any) => {
-      obj.id = index;
-    });
-  }, [todoList]);
-
   return (
     <>
       <Reset />
       <StyledWrap>
         <StyledTitle>투두리스트</StyledTitle>
         <Header />
-        <TodoEditor setTodoList={setTodoList} todoList={todoList} />
-        <TodoList todoList={todoList} setTodoList={setTodoList} />
+        <TodoContainer />
       </StyledWrap>
     </>
   );

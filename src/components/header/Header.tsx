@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const Header = () => {
-  const date = new Date().toDateString();
+// NOTE : 컴포넌트 재생성시 갱신되지 않아도 되는 값은 컴포넌트 밖으로 뺴준다.
+const date = new Date().toDateString();
 
+const Header = () => {
   return (
     <StyledWrap>
       <StyledTitle>오늘은 🗓</StyledTitle>
