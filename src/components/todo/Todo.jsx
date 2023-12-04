@@ -1,13 +1,25 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import Form from "../form/Form";
 import List from "./List";
 
 const Todo = ({ activeFilter }) => {
-  const [todo, setDodo] = useState([]);
+  const [todo, setTodo] = useState(() => {
+    const todoList = localStorage.getItem("todoList");
+    return todoList ? JSON.parse(todoList) : [];
+  });
+
+  // function readTodoFromLocalStorage() {
+  //   const todoList = localStorage.getItem("todoList");
+  //   return todoList ? JSON.parse(todoList) : [];
+  // }
+
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todo));
+  }, [todo]);
 
   const handleAddTodo = useCallback((title) => {
-    setDodo((prev) => [
+    setTodo((prev) => [
       ...prev,
       {
         id: Date.now(),
@@ -19,7 +31,7 @@ const Todo = ({ activeFilter }) => {
 
   const handleUpdate = useCallback(
     (id, state) => {
-      setDodo(
+      setTodo(
         todo.map((todo) => {
           if (todo.id === id) {
             return {
@@ -36,7 +48,7 @@ const Todo = ({ activeFilter }) => {
 
   const handleDelete = useCallback(
     (id) => {
-      setDodo(todo.filter((todo) => todo.id !== id));
+      setTodo(todo.filter((todo) => todo.id !== id));
     },
     [todo]
   );
@@ -44,7 +56,7 @@ const Todo = ({ activeFilter }) => {
   return (
     <StyledWrap>
       <StyledInner>
-        {todo.length === 0 ? (
+        {false ? (
           <StyledText>오늘 할일을 내일로 미루지 말자.</StyledText>
         ) : (
           <List
