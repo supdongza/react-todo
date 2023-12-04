@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import SectionBox from "./components/@common/SectionBox";
 import Header from "./components/header/Header";
-import Form from "./components/form/Form";
 import Todo from "./components/todo/Todo";
 import { useState } from "react";
 
