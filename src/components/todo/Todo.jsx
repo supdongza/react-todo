@@ -56,7 +56,7 @@ const Todo = ({ activeFilter }) => {
   return (
     <StyledWrap>
       <StyledInner>
-        {false ? (
+        {todo.length === 0 ? (
           <StyledText>오늘 할일을 내일로 미루지 말자.</StyledText>
         ) : (
           <List
