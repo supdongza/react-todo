@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
+import { DarkModeContext } from "../../context/DarkModeContext";
+import { FaRegLightbulb, FaLightbulb } from "react-icons/fa";
 
 const Header = ({ filters, activeFilter, handleFilterClick }) => {
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
   return (
-    <StyledWrap>
-      <StyledModeButton type="button">모드</StyledModeButton>
+    <StyledWrap className={darkMode && "darkMode"}>
+      <StyledModeButton type="button" onClick={() => toggleDarkMode()}>
+        {darkMode ? <FaRegLightbulb /> : <FaLightbulb />}
+      </StyledModeButton>
       <StyledList>
         {filters.map((item, index) => (
           <StyledMenuButton
@@ -28,9 +33,28 @@ const StyledWrap = styled.div`
   height: 70px;
   padding: 0 20px;
   border-bottom: 1px solid rgb(62, 65, 83);
-  background-color: rgb(28, 30, 58);
+  background-color: rgb(246, 246, 246);
+
+  &.darkMode {
+    background-color: rgb(28, 30, 58);
+  }
 `;
-const StyledModeButton = styled.button``;
+const StyledModeButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(28, 30, 58);
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+`;
 const StyledList = styled.div`
   display: flex;
   margin-left: auto;

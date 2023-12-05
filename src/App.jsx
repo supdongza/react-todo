@@ -3,6 +3,7 @@ import SectionBox from "./components/@common/SectionBox";
 import Header from "./components/header/Header";
 import Todo from "./components/todo/Todo";
 import { useState } from "react";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 function App() {
   const FILTERS = ["All", "Active", "Completed"];
@@ -13,16 +14,18 @@ function App() {
   };
 
   return (
-    <StyledWrap>
-      <SectionBox>
-        <Header
-          filters={FILTERS}
-          activeFilter={activeFilter}
-          handleFilterClick={handleFilterClick}
-        />
-        <Todo activeFilter={activeFilter} />
-      </SectionBox>
-    </StyledWrap>
+    <DarkModeProvider>
+      <StyledWrap>
+        <SectionBox>
+          <Header
+            filters={FILTERS}
+            activeFilter={activeFilter}
+            handleFilterClick={handleFilterClick}
+          />
+          <Todo activeFilter={activeFilter} />
+        </SectionBox>
+      </StyledWrap>
+    </DarkModeProvider>
   );
 }
 

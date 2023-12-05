@@ -1,13 +1,15 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Form from "../form/Form";
 import List from "./List";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
 const Todo = ({ activeFilter }) => {
   const [todo, setTodo] = useState(() => {
     const todoList = localStorage.getItem("todoList");
     return todoList ? JSON.parse(todoList) : [];
   });
+  const { darkMode } = useContext(DarkModeContext);
 
   // function readTodoFromLocalStorage() {
   //   const todoList = localStorage.getItem("todoList");
@@ -18,7 +20,7 @@ const Todo = ({ activeFilter }) => {
     localStorage.setItem("todoList", JSON.stringify(todo));
   }, [todo]);
 
-  const handleAddTodo = useCallback((title) => {
+  const handleAdd = useCallback((title) => {
     setTodo((prev) => [
       ...prev,
       {
@@ -32,15 +34,7 @@ const Todo = ({ activeFilter }) => {
   const handleUpdate = useCallback(
     (id, state) => {
       setTodo(
-        todo.map((todo) => {
-          if (todo.id === id) {
-            return {
-              ...todo,
-              state: !state,
-            };
-          }
-          return todo;
-        })
+        todo.map((todo) => (todo.id === id ? { ...todo, state: !state } : todo))
       );
     },
     [todo]
@@ -54,7 +48,7 @@ const Todo = ({ activeFilter }) => {
   );
 
   return (
-    <StyledWrap>
+    <StyledWrap className={darkMode && "darkMode"}>
       <StyledInner>
         {todo.length === 0 ? (
           <StyledText>오늘 할일을 내일로 미루지 말자.</StyledText>
@@ -68,7 +62,7 @@ const Todo = ({ activeFilter }) => {
         )}
       </StyledInner>
 
-      <Form handleAddTodo={handleAddTodo} />
+      <Form handleAdd={handleAdd} />
     </StyledWrap>
   );
 };
@@ -79,7 +73,12 @@ const StyledWrap = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: rgb(38, 40, 65);
+  background-color: white;
+  color: black !important;
+  &.darkMode {
+    background-color: rgb(38, 40, 65);
+    color: white !important;
+  }
 `;
 
 const StyledInner = styled.div`

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { DarkModeContext } from "../../context/DarkModeContext";
 
-const Form = ({ handleAddTodo }) => {
+const Form = ({ handleAdd }) => {
+  const { darkMode } = useContext(DarkModeContext);
   const [value, setValue] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!value) return;
-    handleAddTodo(value);
+    if (!value || value.trim().length === 0) return;
+    handleAdd(value);
     setValue("");
   };
 
@@ -15,7 +17,7 @@ const Form = ({ handleAddTodo }) => {
   };
 
   return (
-    <StyledWrap>
+    <StyledWrap className={darkMode && "darkMode"}>
       <StyledForm onSubmit={handleSubmit}>
         <StyledInput
           type="text"
@@ -32,8 +34,10 @@ export default Form;
 
 const StyledWrap = styled.div`
   padding: 20px;
-
-  background-color: rgb(28, 30, 58);
+  background-color: rgb(246, 246, 246);
+  &.darkMode {
+    background-color: rgb(28, 30, 58);
+  }
 `;
 const StyledForm = styled.form`
   display: flex;

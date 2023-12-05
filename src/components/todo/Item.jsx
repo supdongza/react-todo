@@ -29,7 +29,6 @@ export default Item;
 const StyledWrap = styled.li`
   display: flex;
   align-items: center;
-  color: #fff;
   span {
     font-family: monospace;
   }
