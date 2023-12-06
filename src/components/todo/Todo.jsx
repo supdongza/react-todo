@@ -1,51 +1,29 @@
-import React, { useState, useCallback, useEffect, useContext } from "react";
+import React, { useEffect, useContext, useReducer } from "react";
 import styled from "styled-components";
 import Form from "../form/Form";
 import List from "./List";
 import { DarkModeContext } from "../../context/DarkModeContext";
+import todoReducer from "../../reducer/todo-reducer";
 
 const Todo = ({ activeFilter }) => {
-  const [todo, setTodo] = useState(() => {
-    const todoList = localStorage.getItem("todoList");
-    return todoList ? JSON.parse(todoList) : [];
-  });
+  const [todo, dispatch] = useReducer(todoReducer, getTodoList());
   const { darkMode } = useContext(DarkModeContext);
-
-  // function readTodoFromLocalStorage() {
-  //   const todoList = localStorage.getItem("todoList");
-  //   return todoList ? JSON.parse(todoList) : [];
-  // }
 
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todo));
   }, [todo]);
 
-  const handleAdd = useCallback((title) => {
-    setTodo((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        title,
-        state: false,
-      },
-    ]);
-  }, []);
+  const handleAdd = (title) => {
+    dispatch({ type: "add", title });
+  };
 
-  const handleUpdate = useCallback(
-    (id, state) => {
-      setTodo(
-        todo.map((todo) => (todo.id === id ? { ...todo, state: !state } : todo))
-      );
-    },
-    [todo]
-  );
+  const handleUpdate = (id, state) => {
+    dispatch({ type: "update", id, state });
+  };
 
-  const handleDelete = useCallback(
-    (id) => {
-      setTodo(todo.filter((todo) => todo.id !== id));
-    },
-    [todo]
-  );
+  const handleDelete = (id) => {
+    dispatch({ type: "deleted", id });
+  };
 
   return (
     <StyledWrap className={darkMode && "darkMode"}>
@@ -68,6 +46,11 @@ const Todo = ({ activeFilter }) => {
 };
 
 export default Todo;
+
+function getTodoList() {
+  const todoList = localStorage.getItem("todoList");
+  return !!todoList ? JSON.parse(todoList) : [];
+}
 
 const StyledWrap = styled.div`
   flex: 1;
